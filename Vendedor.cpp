@@ -18,6 +18,5 @@ Vendedor::Vendedor(string cve_vendedor, string nombre){
 void Vendedor::addVendedor(Vendedor vendedores[], int &cont){
     vendedores[cont] = *this;
     cont++;
-    cout << "Vendedor añadido" << endl;
 }
 

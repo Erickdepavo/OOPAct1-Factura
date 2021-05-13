@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <string>
 
 /*
 NOTA:
@@ -78,8 +79,39 @@ void GenerarFactura(int &contador, Factura arreglo[], Vendedor vendedor, Inventa
     contador++;
 };
 
-int main() {
+void solicitarVendedor(Vendedor vendedores[], int &cont){
+    
+    string cve_vendedor;
+    string nombre;
 
+    cout << "Ingrese el código del vendedor: ";
+    cin >> cve_vendedor;
+    cout << "Ingresa el nombre del vendedor: ";
+    cin >> nombre;
+
+    Vendedor nuevoVendedor(cve_vendedor, nombre);
+    nuevoVendedor.addVendedor(vendedores, cont);
+}
+
+void solicitarArticulos(Inventario inventarios[], int &contador){
+
+    string cve_articulo;
+    string descripcion;
+    double precio;
+
+    cout << "Ingresa el código del artículo: ";
+    cin >> cve_articulo;
+    cout << "Ingresa el nombre del artículo";
+    cin >> descripcion;
+    cout << "Ingresa el precio del artículo: ";
+    cin >> precio;
+
+    Inventario nuevoArticulo(cve_articulo, descripcion, precio);
+    nuevoArticulo.addInventario(inventarios, contador);
+}
+
+int main() {
+    
     Vendedor vendedores[4];
     Inventario articulos[5];
     Factura facturas[5];
@@ -90,8 +122,8 @@ int main() {
 
     Vendedor v1("v100","Don Julio Estrella");
     Vendedor v2("v200","Doña Esperanza Luna");
-    v1.addVendedor(vendedores, contadorVendedores);
-    v2.addVendedor(vendedores, contadorVendedores);
+    //vendedores[0] = v1;
+    //vendedores[1] = v2;
 
     Inventario i1("i500","Tornillo sin fin",10.0);
     Inventario i2("i100","Piñon cremallera",10.0);
@@ -100,11 +132,13 @@ int main() {
     i2.addInventario(articulos, contadorArticulos);
     i3.addInventario(articulos, contadorArticulos);
 
+    cout << "Articulos: " << contadorArticulos << endl;
+
     GenerarFactura(contadorFacturas,facturas,v1,i2,32);
     GenerarFactura(contadorFacturas,facturas,v2,i3,23);
-    GenerarFactura(contadorFacturas,facturas,v1,i1,14);
 
-    // Imprimimos todas las facturas
+
+    // imprimimos todas las facturas
     cout << "Facturas Generadas "<< endl;
     cout << "No" <<"\t\t"<<"Vendedor"<<"\t"<<"Articulo"<<"\t"<<"Nombre"<<endl;
 
@@ -118,6 +152,7 @@ int main() {
             <<facturas[j].cve_vendedor<<"\t\t"
             <<facturas[j].cve_articulo<<"\t\t"
             <<nombreArticulo<<endl;
+
     }
 
     return 0;
