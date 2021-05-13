@@ -13,7 +13,7 @@ class Vendedor{
         string nombre;
 
         // Métodos vendedor //
-
+        Vendedor(); // Constructor Default 
         Vendedor(string cve_vendedor, string nombre); // Constructor
         void addVendedor(); // Añadir vendedores
 };
