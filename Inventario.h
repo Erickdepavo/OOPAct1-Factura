@@ -8,5 +8,5 @@ class Inventario {
         string descripcion;
         double precio;
 
-        void addInventario(Inventario inventarios[], Inventario inventario)
+        void addInventario(Inventario inventarios[], int contador);
 };

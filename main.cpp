@@ -16,6 +16,7 @@ class Inventario {
         string descripcion;
         double precio;
 };
+*/
 
 class Factura {
     public:
@@ -24,7 +25,6 @@ class Factura {
         string cve_articulo;
         int cantidad;
 };
-*/
 
 string GETDATE() {
     /*
