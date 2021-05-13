@@ -1,6 +1,9 @@
 #include <iostream>
 #include <ctime>
 
+#include <Inventario.h>
+#include <Vendedor.h>
+
 using namespace std;
 
 /*
