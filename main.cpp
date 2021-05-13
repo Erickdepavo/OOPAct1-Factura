@@ -72,6 +72,10 @@ int main() {
     Inventario articulos[5];
     Factura facturas[5];
 
+    int contadorVendedores = 0;
+    int contadorArticulos = 0;
+    int contadorFacturas = 0;
+
     Vendedor v1 = {"v100","Don Julio Estrella"};
     Vendedor v2 = {"v200","Doña Esperanza Luna"};
     vendedores[0] = v1;
@@ -84,15 +88,14 @@ int main() {
     articulos[1] = i2;
     articulos[2] = i3;
 
-    int contadorFactura = 0;
-    GenerarFactura(contadorFactura,facturas,v1,i2,32);
+    GenerarFactura(contadorFacturas,facturas,v1,i2,32);
 
     // imprimimos todas las facturas
     cout << "Facturas Generadas "<< endl;
     cout << "No" <<"\t\t"<<"Vendedor"<<"\t"<<"Articulo"<<"\t"<<"Nombre"<<endl;
 
     string nombreArticulo;
-    for (int j=0; j<=contadorFactura; j++){
+    for (int j=0; j<=contadorFacturas; j++){
         for (int k=0;k<sizeof(articulos)/sizeof(articulos[0]);k++){
             if (facturas[j].cve_articulo == articulos[k].cve_articulo)
                 nombreArticulo = articulos[k].descripcion;
