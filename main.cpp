@@ -76,8 +76,8 @@ int main() {
     int contadorArticulos = 0;
     int contadorFacturas = 0;
 
-    Vendedor v1 = {"v100","Don Julio Estrella"};
-    Vendedor v2 = {"v200","Doña Esperanza Luna"};
+    Vendedor v1("v100","Don Julio Estrella");
+    Vendedor v2("v200","Doña Esperanza Luna");
     vendedores[0] = v1;
     vendedores[1] = v2;
 
