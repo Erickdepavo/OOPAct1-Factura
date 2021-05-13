@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Inventario.h>
+#include "Inventario.h"
 
 using namespace std;
 
