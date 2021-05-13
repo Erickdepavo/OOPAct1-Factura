@@ -4,9 +4,9 @@
 
 using namespace std;
 
-// Constrcutor de Vendedores //
+// Constructor de Vendedores //
 
-Vendedor::Vendedor(){} // Constrcutor Default
+Vendedor::Vendedor(){} // Constructor Default
 
 Vendedor::Vendedor(string cve_vendedor, string nombre){
 
