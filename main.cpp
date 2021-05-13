@@ -102,6 +102,7 @@ int main() {
 
     GenerarFactura(contadorFacturas,facturas,v1,i2,32);
 
+
     // imprimimos todas las facturas
     cout << "Facturas Generadas "<< endl;
     cout << "No" <<"\t\t"<<"Vendedor"<<"\t"<<"Articulo"<<"\t"<<"Nombre"<<endl;
