@@ -6,7 +6,11 @@ using namespace std;
 
 // Constructor de Vendedores //
 
+<<<<<<< HEAD
 Vendedor::Vendedor(){} // Constructor Default
+=======
+Vendedor::Vendedor() {} // Constrcutor Default
+>>>>>>> main
 
 Vendedor::Vendedor(string cve_vendedor, string nombre){
 
@@ -16,6 +20,6 @@ Vendedor::Vendedor(string cve_vendedor, string nombre){
 }
 
 void Vendedor::addVendedor(){
-
+    cout << "Añadido" << endl;
 }
 

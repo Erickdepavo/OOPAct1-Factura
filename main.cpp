@@ -1,8 +1,20 @@
 #include <iostream>
 #include <ctime>
 
-#include "Inventario.h"
-#include "Vendedor.h"
+/*
+NOTA:
+Importamos el .cpp en vez del .h porque CodeRunner no envía
+todos los archivos como argumentos en el comando, de modo
+que importar el .cpp es la única manera de que los compile.
+
+Ejemplo:
+- Como lo manda Code Runner:
+    cd "/path" && g++ -std=c++17 main.cpp -o main && "path"main
+- Como debería mandarlo:
+    cd "/path" && g++ -std=c++17 main.cpp Vendedor.cpp Inventario.cpp -o main && "path"main
+*/
+#include "Inventario.cpp"
+#include "Vendedor.cpp"
 
 using namespace std;
 
@@ -78,8 +90,8 @@ int main() {
 
     Vendedor v1("v100","Don Julio Estrella");
     Vendedor v2("v200","Doña Esperanza Luna");
-    vendedores[0] = v1;
-    vendedores[1] = v2;
+    //vendedores[0] = v1;
+    //vendedores[1] = v2;
 
     Inventario i1 = {"i500","Tornillo sin fin",10.0};
     Inventario i2 = {"i100","Piñon cremallera",10.0};
@@ -89,6 +101,7 @@ int main() {
     articulos[2] = i3;
 
     GenerarFactura(contadorFacturas,facturas,v1,i2,32);
+
 
     // imprimimos todas las facturas
     cout << "Facturas Generadas "<< endl;
