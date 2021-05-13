@@ -90,8 +90,8 @@ int main() {
 
     Vendedor v1("v100","Don Julio Estrella");
     Vendedor v2("v200","Doña Esperanza Luna");
-    //vendedores[0] = v1;
-    //vendedores[1] = v2;
+    v1.addVendedor(vendedores, contadorVendedores);
+    v2.addVendedor(vendedores, contadorVendedores);
 
     Inventario i1("i500","Tornillo sin fin",10.0);
     Inventario i2("i100","Piñon cremallera",10.0);
@@ -100,13 +100,11 @@ int main() {
     i2.addInventario(articulos, contadorArticulos);
     i3.addInventario(articulos, contadorArticulos);
 
-    cout << "Articulos: " << contadorArticulos << endl;
-
     GenerarFactura(contadorFacturas,facturas,v1,i2,32);
     GenerarFactura(contadorFacturas,facturas,v2,i3,23);
+    GenerarFactura(contadorFacturas,facturas,v1,i1,14);
 
-
-    // imprimimos todas las facturas
+    // Imprimimos todas las facturas
     cout << "Facturas Generadas "<< endl;
     cout << "No" <<"\t\t"<<"Vendedor"<<"\t"<<"Articulo"<<"\t"<<"Nombre"<<endl;
 
@@ -120,7 +118,6 @@ int main() {
             <<facturas[j].cve_vendedor<<"\t\t"
             <<facturas[j].cve_articulo<<"\t\t"
             <<nombreArticulo<<endl;
-
     }
 
     return 0;
