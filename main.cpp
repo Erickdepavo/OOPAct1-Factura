@@ -66,7 +66,7 @@ string GETDATE() {
     return str;    
 };
 
-void GenerarFactura(int contador, Factura arreglo[], Vendedor vendedor, Inventario articulo, int cantidad) {
+void GenerarFactura(int &contador, Factura arreglo[], Vendedor vendedor, Inventario articulo, int cantidad) {
     Factura nuevaFactura;
     nuevaFactura.cve_vendedor = vendedor.cve_vendedor;
     nuevaFactura.cve_articulo = articulo.cve_articulo;
@@ -93,14 +93,17 @@ int main() {
     //vendedores[0] = v1;
     //vendedores[1] = v2;
 
-    Inventario i1 = {"i500","Tornillo sin fin",10.0};
-    Inventario i2 = {"i100","Piñon cremallera",10.0};
-    Inventario i3 = {"i700","Ángulo de Ackerman",10.0};
-    articulos[0] = i1;
-    articulos[1] = i2;
-    articulos[2] = i3;
+    Inventario i1("i500","Tornillo sin fin",10.0);
+    Inventario i2("i100","Piñon cremallera",10.0);
+    Inventario i3("i700","Ángulo de Ackerman",10.0);
+    i1.addInventario(articulos, contadorArticulos);
+    i2.addInventario(articulos, contadorArticulos);
+    i3.addInventario(articulos, contadorArticulos);
+
+    cout << "Articulos: " << contadorArticulos << endl;
 
     GenerarFactura(contadorFacturas,facturas,v1,i2,32);
+    GenerarFactura(contadorFacturas,facturas,v2,i3,23);
 
 
     // imprimimos todas las facturas
