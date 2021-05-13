@@ -7,6 +7,8 @@ class Inventario {
         string cve_articulo;
         string descripcion;
         double precio;
-
-        void addInventario(Inventario inventarios[], int contador);
+        
+        Inventario();
+        Inventario(string cve_articulo, string descripcion, double precio);
+        void addInventario(Inventario inventarios[], int &contador);
 };
