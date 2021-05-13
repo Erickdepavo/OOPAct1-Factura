@@ -14,6 +14,6 @@ class Vendedor{
 
         // Métodos vendedor //
 
-        Vendedor(string cve_vendedor, string nombre); // Constructor
+        Vendedores(string cve_vendedor, string nombre); // Constructor
         void addVendedores(); // Añadir vendedores
 };
