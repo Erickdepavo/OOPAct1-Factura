@@ -6,11 +6,7 @@ using namespace std;
 
 // Constructor de Vendedores //
 
-<<<<<<< HEAD
-Vendedor::Vendedor(){} // Constructor Default
-=======
 Vendedor::Vendedor() {} // Constrcutor Default
->>>>>>> main
 
 Vendedor::Vendedor(string cve_vendedor, string nombre){
 
@@ -19,7 +15,9 @@ Vendedor::Vendedor(string cve_vendedor, string nombre){
     this -> nombre = nombre;
 }
 
-void Vendedor::addVendedor(){
-    cout << "Añadido" << endl;
+void Vendedor::addVendedor(Vendedor vendedores[], int cont){
+    vendedores[cont] = *this;
+    cont++;
+    cout << "Vendedor añadido" << endl;
 }
 
