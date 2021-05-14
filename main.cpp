@@ -19,21 +19,6 @@ Ejemplo:
 
 using namespace std;
 
-/*
-class Vendedor {
-    public:
-        string cve_vendedor;
-        string nombre;
-};
-
-class Inventario {
-    public:
-        string cve_articulo;
-        string descripcion;
-        double precio;
-};
-*/
-
 class Factura {
     public:
         string noFactura;
@@ -43,16 +28,7 @@ class Factura {
 };
 
 string GETDATE() {
-    /*
-    // Windows
-    char out[14];
-    std::time_t t=std::time(NULL);
-    std::strftime(out, sizeof(out), "%Y%m%d%H%S", std::localtime(&t));
-    Sleep(2000);  // pauses for 10 seconds
-    return out;
-    */
-
-    // Mac
+    // Windows y Mac
     time_t rawtime;
     struct tm * timeinfo;
     char buffer[80];
@@ -63,7 +39,6 @@ string GETDATE() {
     strftime(buffer,sizeof(buffer),"%Y%m%d%H%S",timeinfo);
     string str(buffer);
 
-    //std::cout << str;
     return str;    
 };
 
@@ -72,8 +47,7 @@ void GenerarFactura(int &contador, Factura arreglo[], Vendedor vendedor, Inventa
     nuevaFactura.cve_vendedor = vendedor.cve_vendedor;
     nuevaFactura.cve_articulo = articulo.cve_articulo;
     nuevaFactura.cantidad = cantidad;
-    nuevaFactura.noFactura = "F" + GETDATE();
-    //cout << nuevaFactura.noFactura << endl;
+    nuevaFactura.noFactura = "F" + GETDATE() + to_string(contador);
 
     arreglo[contador] = nuevaFactura;
     contador++;
@@ -101,13 +75,47 @@ void solicitarArticulos(Inventario inventarios[], int &contador){
 
     cout << "Ingresa el código del artículo: ";
     cin >> cve_articulo;
-    cout << "Ingresa el nombre del artículo";
+    cout << "Ingresa el nombre del artículo: ";
     cin >> descripcion;
     cout << "Ingresa el precio del artículo: ";
     cin >> precio;
 
     Inventario nuevoArticulo(cve_articulo, descripcion, precio);
     nuevoArticulo.addInventario(inventarios, contador);
+}
+
+void imprimirFacturas(Factura facturas[], int &contadorFacturas, Vendedor vendedores[], int &contadorVendedores, Inventario articulos[], int &contadorInventarios) {
+
+    // Generar las facturas
+    for (int index = 0; index < contadorInventarios; index++) {
+        int vendedorIndex = rand() % contadorVendedores; 
+        int cantidad = rand() % 100 + 1;
+        GenerarFactura(contadorFacturas,facturas,vendedores[vendedorIndex],articulos[index],cantidad);
+    }
+
+    // Imprimimos todas las facturas
+    cout << "No" <<"\t\t"<<"Vendedor"<<"\t"<<"Articulo"<<"\t"<<"Cantidad"<<"\t"<<"Importe"<<"\t\t"<<"Nombre"<<endl;
+
+    string nombreArticulo;
+    double precioArticulo;
+    for (int j=0; j<contadorFacturas; j++){
+        for (int k=0; k<contadorInventarios; k++){
+            if (facturas[j].cve_articulo == articulos[k].cve_articulo)
+                nombreArticulo = articulos[k].descripcion;
+                precioArticulo = articulos[k].precio;
+        }
+        cout <<facturas[j].noFactura<<"\t"
+            <<facturas[j].cve_vendedor<<"\t\t"
+            <<facturas[j].cve_articulo<<"\t\t"
+            <<facturas[j].cantidad<<"\t\t"
+            <<"$"<<facturas[j].cantidad * precioArticulo <<"\t\t"
+            <<nombreArticulo<<endl;
+    }
+    cout << endl << endl;
+}
+
+void clear() {
+    cout << "\x1B[2J\x1B[H"; // clear multiplataforma!
 }
 
 int main() {
@@ -120,39 +128,79 @@ int main() {
     int contadorArticulos = 0;
     int contadorFacturas = 0;
 
-    Vendedor v1("v100","Don Julio Estrella");
-    Vendedor v2("v200","Doña Esperanza Luna");
-    //vendedores[0] = v1;
-    //vendedores[1] = v2;
+    // Menu
+    bool muestraAviso = false;
+    string aviso = "";
+    
+    while (true) {
+        clear();
+        
+        cout << "-------------- Menú --------------" << endl;
+        cout << "1) Añadir vendedor" << endl;
+        cout << "2) Añadir inventario (artículo)" << endl;
+        cout << "3) Imprimir facturas" << endl;
+        cout << "4) Salir" << endl;
 
-    Inventario i1("i500","Tornillo sin fin",10.0);
-    Inventario i2("i100","Piñon cremallera",10.0);
-    Inventario i3("i700","Ángulo de Ackerman",10.0);
-    i1.addInventario(articulos, contadorArticulos);
-    i2.addInventario(articulos, contadorArticulos);
-    i3.addInventario(articulos, contadorArticulos);
-
-    cout << "Articulos: " << contadorArticulos << endl;
-
-    GenerarFactura(contadorFacturas,facturas,v1,i2,32);
-    GenerarFactura(contadorFacturas,facturas,v2,i3,23);
-
-
-    // imprimimos todas las facturas
-    cout << "Facturas Generadas "<< endl;
-    cout << "No" <<"\t\t"<<"Vendedor"<<"\t"<<"Articulo"<<"\t"<<"Nombre"<<endl;
-
-    string nombreArticulo;
-    for (int j=0; j<=contadorFacturas; j++){
-        for (int k=0;k<sizeof(articulos)/sizeof(articulos[0]);k++){
-            if (facturas[j].cve_articulo == articulos[k].cve_articulo)
-                nombreArticulo = articulos[k].descripcion;
+        if (muestraAviso) {
+            cout << endl << aviso << endl;
+            aviso = "";
+            muestraAviso = false;
         }
-        cout <<facturas[j].noFactura<<"\t"
-            <<facturas[j].cve_vendedor<<"\t\t"
-            <<facturas[j].cve_articulo<<"\t\t"
-            <<nombreArticulo<<endl;
 
+        cout << endl << "Elige una opción:" << endl;
+
+        string option;
+        cin >> option;
+
+        // Manejar la elección
+        if (option == "1") { // Añadir vendedores
+            clear();
+            cout << "--------- Añadir Vendedor --------" << endl << endl;
+
+            if (contadorVendedores < sizeof(vendedores)/sizeof(vendedores[0])) {
+                solicitarVendedor(vendedores, contadorVendedores);
+                aviso = "Se añadió correctamente el vendedor";
+            } else {
+                aviso = "No se pudo añadir el vendedor; ya has llegado al máximo";
+            }
+            muestraAviso = true;
+
+        } else if (option == "2") {
+            clear();
+            cout << "--------- Añadir Artículo --------" << endl;
+            
+            if (contadorArticulos < sizeof(articulos)/sizeof(articulos[0])) {
+                solicitarArticulos(articulos, contadorArticulos);
+                aviso = "Se añadió correctamente el artículo";
+            } else {
+                aviso = "No se pudo añadir el artículo; ya has llegado al máximo";
+            }   
+            muestraAviso = true;
+
+        } else if (option == "3") {
+            clear();
+            cout << "----------------------------------- Facturas Generadas -----------------------------------" << endl << endl;
+
+            if (contadorArticulos > 0 && contadorVendedores > 0) {
+                imprimirFacturas(facturas, contadorFacturas, vendedores, contadorVendedores, articulos, contadorArticulos);
+                break;
+            } else {
+                if (contadorArticulos == 0 && contadorVendedores == 0) {
+                    aviso = "No puedes generar facturas porque no tienes articulos ni vendedores.";
+                } else if (contadorArticulos == 0) {
+                    aviso = "No puedes generar facturas porque no tienes articulos.";
+                } else {
+                    aviso = "No puedes generar facturas porque no tienes vendedores.";
+                }
+                muestraAviso = true;
+            }
+        } else if (option == "4") {
+            clear();
+            break;
+        } else {
+            aviso = "La opción que elegiste no existe.";
+            muestraAviso = true;
+        }
     }
 
     return 0;
